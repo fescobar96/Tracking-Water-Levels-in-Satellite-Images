@@ -24,7 +24,7 @@ By using the NDWI and a custom threshold higher than the one used to detect vege
 
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/3.png?raw=true)
 
-**Figure 1 **: Water Body in Kazakhstan. Left: True Color Image, Right: Mask
+**Figure 1**: Water Body in Kazakhstan. Left: True Color Image, Right: Mask
 
 The next step was to capture satellite images and generate masks for a couple thousands different water bodies. Although the creation of this dataset was a lengthy and time-consuming task, the fact that it was fully automated made it a much better alternative to manually annotating images and it allowed for scaling the size of the dataset as needed.
 
