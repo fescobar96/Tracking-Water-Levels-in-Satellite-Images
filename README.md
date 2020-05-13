@@ -1,6 +1,6 @@
 # Tracking Water Levels in Satellite Data
 
-![1](C:\Users\Work\Documents\Satellite Images\1.gif)
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/1.gif?raw=true)
 
 
 
@@ -14,7 +14,7 @@ My next attempt to collect a larger dataset was by accessing the Sentinel 2 clou
 
 
 
-![2](C:\Users\Work\Documents\Satellite Images\2.png)
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/2.png?raw=true)
 
 
 
@@ -22,7 +22,7 @@ By using the NDWI and a custom threshold higher than the one used to detect vege
 
 
 
-![3](C:\Users\Work\Documents\Satellite Images\3.png)
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/3.png?raw=true)
 
 **Figure 1 **: Water Body in Kazakhstan. Left: True Color Image, Right: Mask
 
@@ -34,7 +34,7 @@ The images and the masks were split into 80% training data and 20% test data. Th
 
 
 
-![](C:\Users\Work\Documents\Satellite Images\4.png)
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/4.png?raw=true)
 
 **Figure 2**: Dice Loss vs. Epochs
 
@@ -44,12 +44,12 @@ After the model was trained, I counted the white pixels in the predictions and I
 
 By determining the water percentage in an water body image, I am certainly not able to determine the water levels of such water body, but I am able to estimate the change percentage in water levels across different images throughout a specific period of time. I used the estimations in change percentage in the water level of Lake Travis in Austin, Texas. I then proceeded to plot such estimations and compared them with the ground truth. **Figure 3** and **Figure 4** show this comparison.
 
-![](C:\Users\Work\Documents\Satellite Images\5.png)
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/5.png?raw=true)
 
 **Figure 3**: Ground Truth Percentage Change in Lake Travis
 
 
 
-![](C:\Users\Work\Documents\Satellite Images\6.png)
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/6.png?raw=true)
 
 **Figure 4**: Predicted Percentage Change in Water Levels in Lake Travis
