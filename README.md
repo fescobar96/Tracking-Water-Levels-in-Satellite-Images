@@ -1,4 +1,4 @@
-# Tracking Water Levels in Satellite Data
+# Tracking Water Levels in Satellite Images
 
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/1.gif?raw=true)
 
