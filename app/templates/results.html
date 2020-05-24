@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid bg-2 text-center" id="second">
+{% if scroll %}
+<script>
+    document.location.hash = '#' + '{{ scroll }}';
+</script>
+{% endif %}
+    <h3>Image Analysis Complete</h3>
+    <br>
+    <p><img src="{{ url_for('send_file', filename=filename) }}" class="img-thumbnail" id="picture"></p>
+      <h4>Results:</h4>
+    <table>
+        <tr><td>Water Percentage</td>
+        <td>{{ results['water_percentage'] }}</td></tr>
+        <tr><td>Land Percentage</td>
+        <td>{{ results['land_percentage'] }}</td></tr>
+        <tr><td colspan="2"><img src="{{ url_for('static', filename='mask.png') }}" width="400" height="400"></td></tr>
+      </table>
+    </br>
+      <a href="{{ url_for('assess') }}" class="btn btn-default btn-file">
+        Analyze Other Image
+      </a>
+</div>
+{% endblock %}

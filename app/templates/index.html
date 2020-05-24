@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid bg-2 text-center" id="second">
+{% if scroll %}
+<script>
+    document.location.hash = '#' + '{{ scroll }}';
+</script>
+{% endif %}
+    <h3>Submit Image for Analysis</h3>
+        <div class = flashes>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}</div>
+
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" id="window"></div>
+  <div>
+    <form action="segmentation" method="POST" enctype="multipart/form-data" class ="form-inline">
+    <span class="btn btn-default btn-file">
+    <span class="fileinput-new">Select Image</span>
+    <span class="fileinput-exists">Change</span>
+    <input type="file" id="filename" name="file"></span>
+    <button type="submit" class="btn btn-default fileinput-exists" id="analyze" onclick="loading();">Submit</button></form></div>
+
+  </div>
+{% endblock %}
