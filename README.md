@@ -12,21 +12,20 @@ I initially downloaded the *NWPU-RESISC45* dataset of land covers and uses and d
 
 My next attempt to collect a larger dataset was by accessing the Sentinel 2 cloudless API to retrieve more than a dozen different raster files of water bodies, each captured at a different wavelength. By superposing band 4 (red), band 3 (green), and band 2 (blue), I was able to reconstruct a true color satellite image of the water bodies based on coordinates contained in shapefiles for such water bodies. To create masks of the water bodies, I used the NDWI or Normalized Difference Water Index, which is frequently used to detect vegetation in satellite images and is defined by the following formula:
 
-<p align="center">
+
 
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/2.png?raw=true)
 
-</p>
+
 
 
 By using the NDWI and a custom threshold higher than the one used to detect vegetation in satellite images, I was able to come up with a mask where the color white represents water and the color black represents everything else but water. Please take a look at **Figure 1**.
 
 
-<p align="center">
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/3.png?raw=true)
 
 **Figure 1**: Water Body in Kazakhstan. Left: True Color Image, Right: Mask
-</p>
+
 The next step was to capture satellite images and generate masks for a couple thousands different water bodies. Although the creation of this dataset was a lengthy and time-consuming task, the fact that it was fully automated made it a much better alternative to manually annotating images and it allowed for scaling the size of the dataset as needed.
 
 I ran my script for approximately three or four days, and I was able to end up with a dataset of almost 3,00 different images of water bodies and their respective masks. It is important to mention that the dataset is far from perfect and could be improved greatly by removing the black borders in the images. The black borders are caused due to conflicts between the projection in which the satellite took the image and the projection of the shapefile of the water bodies. 
@@ -36,28 +35,28 @@ I cleaned and preprocessed the dataset and made it publicly available through Ka
 The images and the masks were split into 80% training data and 20% test data. These two datasets were then fed to a Keras U-Net  and trained for 100 epochs using dice loss. The results are presented in **Figure 2.**
 
 
-<p align="center">
+
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/4.png?raw=true)
 
 **Figure 2**: Dice Loss vs. Epochs
-</p>
+
 
 After the model was trained, I counted the white pixels in the predictions and I divided that number by the total number of pixels to determine the percentage of the picture that contained water. I estimated that the mean error percentage is 19.33%, but most of it can be attributed to the black borders in the images that area result of differences in cardinal projections between the shapefiles of the bodies of water and their satellite images.
 
 By determining the water percentage in an water body image, I am certainly not able to determine the water levels of such water body, but I am able to estimate the change percentage in water levels across different images throughout a specific period of time. I used the estimations in change percentage in the water level of Lake Travis in Austin, Texas. I used the series of images in **Figure 3** as my input data and tried to make predictions regarding their changes in water levels through time. I then proceeded to plot such estimations and compared them with the ground truth. **Figure 4** and **Figure 5** show this comparison.
 
 
-<p align="center">
+
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/1.gif?raw=true)
 
 **Figure 3**: Satellite Images of Lake Travis
-</p>
 
-<p align="center">
+
+
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/5.png?raw=true)
 
 **Figure 4**: Ground Truth Percentage Change in Lake Travis
-</p>
+
 
 
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/6.png?raw=true)
@@ -98,7 +97,6 @@ I invite you to visit [waterfromsatellites.com](http://waterfromsatellites.com) 
 
 **Figure 9**: Sample Image to Test [waterfromsatellites.com](http://waterfromsatellites.com)
 
-</p>
 
 ## References
 
