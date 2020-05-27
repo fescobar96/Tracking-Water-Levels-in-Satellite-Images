@@ -30,6 +30,8 @@ The next step was to capture satellite images and generate masks for a couple th
 
 I ran my script for approximately three or four days, and I was able to end up with a dataset of almost 3,00 different images of water bodies and their respective masks. It is important to mention that the dataset is far from perfect and could be improved greatly by removing the black borders in the images. The black borders are caused due to conflicts between the projection in which the satellite took the image and the projection of the shapefile of the water bodies. 
 
+I cleaned and preprocessed the dataset and made it publicly available through Kaggle. Please feel to access this dataset using the following link: https://www.kaggle.com/franciscoescobar/satellite-images-of-water-bodies
+
 The images and the masks were split into 80% training data and 20% test data. These two datasets were then fed to a Keras U-Net  and trained for 100 epochs using dice loss. The results are presented in **Figure 2.**
 
 
@@ -38,18 +40,64 @@ The images and the masks were split into 80% training data and 20% test data. Th
 
 **Figure 2**: Dice Loss vs. Epochs
 
+After the model was trained, I counted the white pixels in the predictions and I divided that number by the total number of pixels to determine the percentage of the picture that contained water. I estimated that the mean error percentage is 19.33%, but most of it can be attributed to the black borders in the images that area result of differences in cardinal projections between the shapefiles of the bodies of water and their satellite images.
+
+By determining the water percentage in an water body image, I am certainly not able to determine the water levels of such water body, but I am able to estimate the change percentage in water levels across different images throughout a specific period of time. I used the estimations in change percentage in the water level of Lake Travis in Austin, Texas. I used the series of images in **Figure 3** as my input data and tried to make predictions regarding their changes in water levels through time. I then proceeded to plot such estimations and compared them with the ground truth. **Figure 4** and **Figure 5** show this comparison.
 
 
-After the model was trained, I counted the white pixels in the predictions and I divided that number by the total number of pixels to determine the percentage of the picture that contained water. I estimated that the mean error percentage is 18.48%, but most of it can be attributed to the black borders in the images.
 
-By determining the water percentage in an water body image, I am certainly not able to determine the water levels of such water body, but I am able to estimate the change percentage in water levels across different images throughout a specific period of time. I used the estimations in change percentage in the water level of Lake Travis in Austin, Texas. I then proceeded to plot such estimations and compared them with the ground truth. **Figure 3** and **Figure 4** show this comparison.
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/1.gif?raw=true)
+
+**Figure 3**: Satellite Images of Lake Travis
+
+
 
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/5.png?raw=true)
 
-**Figure 3**: Ground Truth Percentage Change in Lake Travis
+**Figure 4**: Ground Truth Percentage Change in Lake Travis
 
 
 
 ![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Data/blob/master/Satellite%20Images/6.png?raw=true)
 
-**Figure 4**: Predicted Percentage Change in Water Levels in Lake Travis
+**Figure 5**: Predicted Percentage Change in Water Levels in Lake Travis
+
+
+
+After analyzing and comparing the predicted percentage change in water levels in Lake Travis to the ground truth, I reached the conclusion that this method is outperformed by on-site water levels sensors installed throughout Lake Travis. However, I do believe that this methodology could be applied to circumstances in which having physical sensors is not feasible as in the case of water bodies in remote or dangerous locations.
+
+I decided to take this project even further by developing a web application. I used Flask and JavaScript to create http://waterfromsatellites.com/. The website works by displaying a page where the user can upload a satellite image of a water body. After the user submits the image, the Flask application calls server.py, which is a Python file that contains a serialized copy of my model. Server.py performs image preprocessing, creates a prediction mask, calculates the water and land percentages. The results are sent back to the main Flask application and are displayed to the user in a matter of a few seconds. Please refer to **Figure 6**, **Figure 7**, and **Figure 8** for a general overview of the application.
+
+
+
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Images/blob/master/Satellite%20Images/7.jpg?raw=true)
+
+**Figure 6**: Main Menu of [waterfromsatellites.com](http://waterfromsatellites.com)
+
+
+
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Images/blob/master/Satellite%20Images/8.jpg?raw=true)
+
+**Figure 7**: Image Analysis in [waterfromsatellites.com](http://waterfromsatellites.com)
+
+
+
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Images/blob/master/Satellite%20Images/9.jpg?raw=true)
+
+**Figure 8**: Results in [waterfromsatellites.com](http://waterfromsatellites.com)
+
+
+
+The web application was deployed to an AWS EC2 instance that had to be configured through an Ubuntu terminal. The whole deployment process is user friendly and enjoyable. In the EC2 instance, I had to configure nginx and gunicorn to serve as interfaces between the internet and my Flask application. The configuration process is straightforward and well documented. Finally, I used AWS Route53 to set up a domain that I bought with Google Domains and then routed the traffic of my domain to the public IP of my application.
+
+I invite you to visit [waterfromsatellites.com](http://waterfromsatellites.com) and try it by yourself. Feel free to user your own satellite images of water bodies or download the following one:
+
+![](https://github.com/fescobar96/Tracking-Water-Levels-in-Satellite-Images/blob/master/Satellite%20Images/example1.jpg?raw=true)
+
+**Figure 9**: Sample Image to Test [waterfromsatellites.com](http://waterfromsatellites.com)
+
+
+
+## References
+
+1. Cheng, Gong, Junwei Han, and Xiaoqiang Lu. “Remote Sensing Image Scene Classification: Benchmark and State of the Art.” Proceedings of the IEEE 105.10 (2017): 1865–1883. Crossref. Web.
